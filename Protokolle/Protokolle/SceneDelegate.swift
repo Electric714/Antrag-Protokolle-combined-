@@ -9,31 +9,8 @@ import UIKit
 import SwiftUI
 import IDeviceSwift
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-	var currentScene: UIScene?
-	var window: UIWindow?
-
-	func scene(
-		_ scene: UIScene,
-		willConnectTo session: UISceneSession,
-		options connectionOptions: UIScene.ConnectionOptions
-	) {
-		self.currentScene = scene
-		guard let windowScene = scene as? UIWindowScene else { return }
-		
-		let window = UIWindow(windowScene: windowScene)
-		let controller = SYMenuContainerViewController()
-
-		window.tintColor = .systemGreen
-		window.rootViewController = controller
-		window.makeKeyAndVisible()
-		self.window = window
-	}
-	
-	func scene(
-		_ scene: UIScene,
-		openURLContexts URLContexts: Set<UIOpenURLContext>
-	) {
+enum ProtokolleURLImportHandler {
+	static func handle(_ URLContexts: Set<UIOpenURLContext>) {
 		guard
 			let url = URLContexts.first?.url,
 			url.pathExtension == "protokolle"
@@ -59,4 +36,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		)
 	}
 }
-
