@@ -11,6 +11,6 @@
       location = "container:Antrag.xcodeproj">
    </FileRef>
    <FileRef
-      location = "absolute:/Users/samara/Documents/Repositories/Antrag/IDeviceKit">
+      location = "group:IDeviceKit">
    </FileRef>
 </Workspace>
