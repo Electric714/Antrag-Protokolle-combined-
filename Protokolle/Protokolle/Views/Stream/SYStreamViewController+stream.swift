@@ -47,7 +47,7 @@ extension SYStreamViewController {
 		dataSource.applySnapshotUsingReloadData(snapshot) {
 			let label: String = .localized("%lld Messages", arguments: snapshot.numberOfItems)
 			self.subtitleLabel.text = label
-			UIApplication.sceneDelegate?.currentScene?.title = label
+			UIApplication.currentScene?.title = label
 		}
 	}
 	

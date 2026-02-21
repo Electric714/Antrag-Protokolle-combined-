@@ -8,19 +8,17 @@
 import UIKit
 import IDeviceSwift
 
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-	let heartbeart = HeartbeatManager.shared
-	
-	func application(
-		_ application: UIApplication,
-		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-	) -> Bool {
+enum ProtokolleModuleBootstrap {
+	private static var hasPrepared = false
+
+	static func prepareIfNeeded() {
+		guard !hasPrepared else { return }
+		hasPrepared = true
 		_createDocumentsDirectory()
-		return true
+		_ = HeartbeatManager.shared
 	}
-	
-	private func _createDocumentsDirectory() {
+
+	private static func _createDocumentsDirectory() {
 		let fileManager = FileManager.default
 		let directory = fileManager.exports
 		
@@ -31,4 +29,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 	}
 }
-
