@@ -34,6 +34,8 @@ Due to how it works right now we need both a VPN and a lockdownd pairing file, t
 - Swift 5.9
 - iOS 16
 
+> Deployment floor note: Antrag target settings and the embedded Protokolle package are unified on **iOS 16** to keep one consistent runtime baseline (matching current app support and avoiding cross-target API drift).
+
 1. Clone repository
     ```sh
     git clone https://github.com/khcrysalis/Antrag
