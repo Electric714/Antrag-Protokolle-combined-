@@ -21,11 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let windowScene = scene as? UIWindowScene else { return }
 		
 		let window = UIWindow(windowScene: windowScene)
-		let controller = UINavigationController(rootViewController: ATAppsViewController())
+		let controller = UINavigationController(rootViewController: ATAppPickerViewController())
 
 		window.rootViewController = controller
 		window.makeKeyAndVisible()
 		self.window = window
 	}
 }
-
