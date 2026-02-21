@@ -4,7 +4,8 @@ SCHEME := Antrag
 TMP := $(if $(TMPDIR),$(TMPDIR),/tmp)/$(NAME)
 STAGE := $(TMP)/stage
 APP := $(TMP)/Build/Products/Release-$(PLATFORM)
-OUTPUT_DIR := packages
+# Deployment floor is iOS 16 (kept in sync with Xcode target and Protokolle Package.swift).
+DEPLOYMENT_FLOOR := 16.0
 
 .PHONY: all clean $(SCHEME)
 
