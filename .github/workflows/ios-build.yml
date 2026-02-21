@@ -1,0 +1,66 @@
+name: iOS Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    env:
+      PROJECT: Antrag.xcodeproj
+      SCHEME: Antrag
+      CONFIGURATION: Release
+      SDK: iphoneos
+      ARCHIVE_PATH: artifacts/archive/Antrag.xcarchive
+      IPA_OUTPUT_DIR: artifacts/ipa
+      IPA_PATH: artifacts/ipa/Antrag.ipa
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build unsigned IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Resolving Swift packages..."
+          xcodebuild -resolvePackageDependencies \
+            -project "$PROJECT" \
+            -scheme "$SCHEME"
+
+          echo "Archiving (unsigned)..."
+          xcodebuild clean archive \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -configuration "$CONFIGURATION" \
+            -sdk "$SDK" \
+            -archivePath "$ARCHIVE_PATH" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=""
+
+          echo "Packaging IPA..."
+          mkdir -p "$IPA_OUTPUT_DIR" "$IPA_OUTPUT_DIR/Payload"
+          APP_PATH=$(find "$ARCHIVE_PATH/Products/Applications" -maxdepth 1 -type d -name '*.app' | head -n 1)
+          if [[ -z "$APP_PATH" ]]; then
+            echo "No .app found in archive at $ARCHIVE_PATH/Products/Applications"
+            exit 1
+          fi
+
+          cp -R "$APP_PATH" "$IPA_OUTPUT_DIR/Payload/"
+          (
+            cd "$IPA_OUTPUT_DIR"
+            zip -qry "$(basename "$IPA_PATH")" Payload
+          )
+          rm -rf "$IPA_OUTPUT_DIR/Payload"
+
+      - name: Upload unsigned IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-unsigned-ipa
+          path: artifacts/ipa
+          if-no-files-found: error
