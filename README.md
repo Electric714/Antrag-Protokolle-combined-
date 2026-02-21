@@ -26,6 +26,10 @@ Visit [releases](https://github.com/khcrysalis/Antrag/releases) and get the late
 
 Due to how it works right now we need both a VPN and a lockdownd pairing file, this means you will need a computer for its initial setup.
 
+## Migration note
+
+The old standalone `Protokolle` app target/project is now considered legacy in this combined repository. `Antrag` is the only distributable app target, while `Protokolle` remains as a reusable Swift package module defined by `Protokolle/Package.swift`.
+
 ## Building
 
 #### Minimum requirements
@@ -50,7 +54,7 @@ Due to how it works right now we need both a VPN and a lockdownd pairing file, t
     git pull
     ```
 
-Using the makefile will automatically create an adhoc ipa inside the packages directory, using this to debug or report issues is not recommend. When making a pull request or reporting issues, it's generally advised you've used Xcode to debug your changes properly.
+Using the root Makefile will create a unified unsigned IPA for Antrag inside the `packages` directory. For debugging and issue reports, use Xcode to debug your changes properly. When making a pull request or reporting issues, it's generally advised you've used Xcode to debug your changes properly.
 
 ## Sponsors
 

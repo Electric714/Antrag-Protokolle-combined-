@@ -22,6 +22,11 @@ let package = Package(
 				.product(name: "IDeviceSwift", package: "IDeviceKit")
 			],
 			path: "Protokolle",
+			exclude: [
+				"AppDelegate.swift",
+				"SceneDelegate.swift",
+				"Supporting Files"
+			],
 			resources: [
 				.process("Resources/Assets.xcassets"),
 				.process("Resources/Settings.bundle"),

@@ -1,41 +1,45 @@
 NAME := Antrag
 PLATFORM := iphoneos
-SCHEMES := Antrag
-TMP := $(TMPDIR)/$(NAME)
+SCHEME := Antrag
+TMP := $(if $(TMPDIR),$(TMPDIR),/tmp)/$(NAME)
 STAGE := $(TMP)/stage
 APP := $(TMP)/Build/Products/Release-$(PLATFORM)
+OUTPUT_DIR := packages
 
-.PHONY: all clean $(SCHEMES)
+.PHONY: all clean $(SCHEME)
 
-all: $(SCHEMES)
+all: $(SCHEME)
 
 clean:
 	rm -rf $(TMP)
-	rm -rf packages
+	rm -rf $(OUTPUT_DIR)
 	rm -rf Payload
 
-$(SCHEMES):
+$(SCHEME):
 	xcodebuild \
 	    -project Antrag.xcodeproj \
-	    -scheme "$@" \
+	    -scheme "$(SCHEME)" \
 	    -configuration Release \
-	    -arch arm64 \
 	    -sdk $(PLATFORM) \
 	    -derivedDataPath $(TMP) \
 	    -skipPackagePluginValidation \
+	    -resolvePackageDependencies \
+	    clean build \
 	    CODE_SIGNING_ALLOWED=NO \
+	    CODE_SIGNING_REQUIRED=NO \
+	    CODE_SIGN_IDENTITY="" \
 	    ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=NO
 
 	rm -rf Payload
 	rm -rf $(STAGE)/
 	mkdir -p $(STAGE)/Payload
 
-	mv "$(APP)/$@.app" "$(STAGE)/Payload/$@.app"
+	mv "$(APP)/$(SCHEME).app" "$(STAGE)/Payload/$(SCHEME).app"
 
-	cp deps/* "$(STAGE)/Payload/$@.app/" || true
+	cp deps/* "$(STAGE)/Payload/$(SCHEME).app/" || true
 
-	rm -rf "$(STAGE)/Payload/$@.app/_CodeSignature"
+	rm -rf "$(STAGE)/Payload/$(SCHEME).app/_CodeSignature"
 	ln -sf "$(STAGE)/Payload" Payload
-	
-	mkdir -p packages
-	zip -r9 "packages/$@.ipa" Payload
+
+	mkdir -p $(OUTPUT_DIR)
+	zip -r9 "$(OUTPUT_DIR)/$(SCHEME).ipa" Payload

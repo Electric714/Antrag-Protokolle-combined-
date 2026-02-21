@@ -34,6 +34,10 @@ The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](http
 
 Due to how it works right now we need both a VPN and a lockdownd pairing file, this means you will need a computer for its initial setup.
 
+## Legacy status in this repository
+
+The standalone `Protokolle` Xcode app target is legacy in this combined repository. `Protokolle` is maintained as a reusable Swift package module boundary via `Package.swift`, and distribution is handled by the root `Antrag` app target.
+
 ## Building
 
 #### Minimum requirements
@@ -44,21 +48,18 @@ Due to how it works right now we need both a VPN and a lockdownd pairing file, t
 
 1. Clone repository
     ```sh
-    git clone https://github.com/khcrysalis/Protokolle
+    git clone https://github.com/khcrysalis/Antrag-Protokolle-combined-
     ```
 
-2. Compile
+2. Build distributable app output
     ```sh
-    cd Protokolle
     gmake
     ```
 
-3. Updating
-    ```sh
-    git pull
-    ```
+3. Use as a package module
+    - Add local package dependency from `Protokolle/Package.swift`.
 
-Using the makefile will automatically create an adhoc ipa inside the packages directory, using this to debug or report issues is not recommend. When making a pull request or reporting issues, it's generally advised you've used Xcode to debug your changes properly.
+This repository no longer ships a standalone `Protokolle` IPA path. Distribution output is unified under the root app build.
 
 ## Sponsors
 
