@@ -47,11 +47,15 @@ jobs:
 
           echo "Resolving Swift packages..."
           xcodebuild -resolvePackageDependencies \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
             -project "$PROJECT" \
             -scheme "$SCHEME"
 
           echo "Archiving (unsigned)..."
           xcodebuild clean archive \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
             -project "$PROJECT" \
             -scheme "$SCHEME" \
             -configuration "$CONFIGURATION" \

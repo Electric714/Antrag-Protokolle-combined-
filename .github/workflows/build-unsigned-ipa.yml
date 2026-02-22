@@ -39,8 +39,10 @@ jobs:
           set -euo pipefail
           xcodebuild -version
           xcodebuild -list -workspace "$WORKSPACE"
-          xcodebuild -resolvePackageDependencies -workspace "$WORKSPACE" -scheme "$SCHEME"
+          xcodebuild -resolvePackageDependencies -skipPackagePluginValidation -skipMacroValidation -workspace "$WORKSPACE" -scheme "$SCHEME"
           xcodebuild archive \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
             -workspace "$WORKSPACE" \
             -scheme "$SCHEME" \
             -configuration Release \
