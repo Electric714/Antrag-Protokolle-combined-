@@ -9,6 +9,7 @@ Each embedded module must:
 - Not declare its own `@main` / app lifecycle entry point.
 - Export a single root view controller entry point through `ATEmbeddedModule.makeRootViewController()`.
 - Keep `prepareIfNeeded()` idempotent so repeated launches are safe.
+- Expose a public module prepare entry point so the host can call it before navigation (for example, `ProtokollePrepare.prepareIfNeeded()`).
 
 The contract lives in `Antrag/Modules/ATEmbeddedModule.swift` and is registered in `Antrag/Modules/ATModuleRegistry.swift`.
 

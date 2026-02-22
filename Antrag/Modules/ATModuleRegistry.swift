@@ -29,7 +29,7 @@ private struct ProtokolleModule: ATEmbeddedModule {
 	let subtitle: String? = nil
 
 	func prepareIfNeeded() {
-		// ProtokolleRootView handles module bootstrap in makeUIViewController.
+		ProtokollePrepare.prepareIfNeeded()
 	}
 
 	func makeRootViewController() -> UIViewController {
