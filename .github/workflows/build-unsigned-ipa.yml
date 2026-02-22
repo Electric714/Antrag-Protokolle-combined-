@@ -1,0 +1,74 @@
+name: Build Unsigned IPA
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-unsigned-ipa:
+    runs-on: macos-14
+
+    env:
+      WORKSPACE: Antrag.xcworkspace
+      SCHEME: Antrag
+      ARCHIVE_PATH: ${{ runner.temp }}/Antrag.xcarchive
+      ARTIFACT_DIR: ${{ github.workspace }}/artifacts
+      IPA_PATH: ${{ github.workspace }}/artifacts/Antrag-unsigned.ipa
+
+    steps:
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Validate submodules and IDeviceKit package manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git submodule status --recursive
+          test -f IDeviceKit/Package.swift
+
+      - name: Build unsigned archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild -version
+          xcodebuild -list -workspace "$WORKSPACE"
+          xcodebuild -resolvePackageDependencies -workspace "$WORKSPACE" -scheme "$SCHEME"
+          xcodebuild archive \
+            -workspace "$WORKSPACE" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$ARCHIVE_PATH" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM=""
+
+      - name: Package unsigned IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ARTIFACT_DIR" "$RUNNER_TEMP/Payload"
+          APP_PATH=$(find "$ARCHIVE_PATH/Products/Applications" -maxdepth 1 -name '*.app' -print -quit)
+          test -n "$APP_PATH"
+          cp -R "$APP_PATH" "$RUNNER_TEMP/Payload/"
+          (
+            cd "$RUNNER_TEMP"
+            rm -f "$IPA_PATH"
+            /usr/bin/zip -qry "$IPA_PATH" Payload
+          )
+
+      - name: Upload unsigned IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Antrag-unsigned-ipa
+          path: ${{ env.IPA_PATH }}
+          if-no-files-found: error
