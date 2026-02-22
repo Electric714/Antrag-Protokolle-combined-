@@ -12,7 +12,13 @@ final class ATAppPickerViewController: UIViewController {
 
 	private func setupLayout() {
 		let buttons = modules.enumerated().map { index, module in
-			let button = UIButton(configuration: configuredButton(for: module))
+			var configuration = UIButton.Configuration.filled()
+			configuration.title = module.displayName
+			configuration.subtitle = module.subtitle
+			configuration.cornerStyle = .large
+			configuration.buttonSize = .large
+
+			let button = UIButton(configuration: configuration)
 			button.tag = index
 			button.addTarget(self, action: #selector(openModule(_:)), for: .touchUpInside)
 			button.heightAnchor.constraint(equalToConstant: 72).isActive = true
@@ -33,15 +39,6 @@ final class ATAppPickerViewController: UIViewController {
 			stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
 			stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
 		])
-	}
-
-	private func configuredButton(for module: ATEmbeddedModule) -> UIButton.Configuration {
-		var configuration = UIButton.Configuration.filled()
-		configuration.title = module.displayName
-		configuration.subtitle = module.subtitle
-		configuration.cornerStyle = .large
-		configuration.buttonSize = .large
-		return configuration
 	}
 
 	@objc private func openModule(_ sender: UIButton) {
