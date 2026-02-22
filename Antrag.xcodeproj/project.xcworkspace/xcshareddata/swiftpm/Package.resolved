@@ -2,12 +2,12 @@
   "originHash" : "e842fb062d753556c884fab94791e116eea274061104fd07d5981e0486d43123",
   "pins" : [
     {
-      "identity" : "uicustomswipeactions-patch",
+      "identity" : "licenseplist",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/khcrysalis/UICustomSwipeActions-patch",
+      "location" : "https://github.com/mono0926/LicensePlist",
       "state" : {
-        "branch" : "fix-placement",
-        "revision" : "bc150b1f7ab18f01ff21b733e65045fec86e4f95"
+        "revision" : "ab1692c16f4ce50fc134a8f51179f3310d41c5ef",
+        "version" : "3.27.1"
       }
     }
   ],

@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
 	name: "Protokolle",
+	defaultLocalization: "en",
 	platforms: [
 		.iOS(.v16)
 	],
