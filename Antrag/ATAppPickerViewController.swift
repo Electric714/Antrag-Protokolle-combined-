@@ -1,27 +1,7 @@
 import UIKit
-import SwiftUI
-import Protokolle
 
 final class ATAppPickerViewController: UIViewController {
-	private lazy var antragButton: UIButton = {
-		var configuration = UIButton.Configuration.filled()
-		configuration.title = "Antrag"
-		configuration.cornerStyle = .large
-		configuration.buttonSize = .large
-		let button = UIButton(configuration: configuration)
-		button.addTarget(self, action: #selector(openAntrag), for: .touchUpInside)
-		return button
-	}()
-
-	private lazy var protokolleButton: UIButton = {
-		var configuration = UIButton.Configuration.filled()
-		configuration.title = "Protokolle"
-		configuration.cornerStyle = .large
-		configuration.buttonSize = .large
-		let button = UIButton(configuration: configuration)
-		button.addTarget(self, action: #selector(openProtokolle), for: .touchUpInside)
-		return button
-	}()
+	private let modules = ATModuleRegistry.all
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -31,11 +11,19 @@ final class ATAppPickerViewController: UIViewController {
 	}
 
 	private func setupLayout() {
-		let stackView = UIStackView(arrangedSubviews: [antragButton, protokolleButton])
+		let buttons = modules.enumerated().map { index, module in
+			let button = UIButton(configuration: configuredButton(for: module))
+			button.tag = index
+			button.addTarget(self, action: #selector(openModule(_:)), for: .touchUpInside)
+			button.heightAnchor.constraint(equalToConstant: 72).isActive = true
+			return button
+		}
+
+		let stackView = UIStackView(arrangedSubviews: buttons)
 		stackView.axis = .vertical
 		stackView.spacing = 20
 		stackView.alignment = .fill
-		stackView.distribution = .fillEqually
+		stackView.distribution = .fill
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
 		view.addSubview(stackView)
@@ -43,19 +31,23 @@ final class ATAppPickerViewController: UIViewController {
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
 			stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-			antragButton.heightAnchor.constraint(equalToConstant: 72),
-			protokolleButton.heightAnchor.constraint(equalTo: antragButton.heightAnchor)
+			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
 		])
 	}
 
-	@objc private func openAntrag() {
-		navigationController?.pushViewController(ATAppsViewController(), animated: true)
+	private func configuredButton(for module: ATEmbeddedModule) -> UIButton.Configuration {
+		var configuration = UIButton.Configuration.filled()
+		configuration.title = module.displayName
+		configuration.subtitle = module.subtitle
+		configuration.cornerStyle = .large
+		configuration.buttonSize = .large
+		return configuration
 	}
 
-	@objc private func openProtokolle() {
-		let controller = UIHostingController(rootView: ProtokolleRootView())
-		controller.title = "Protokolle"
-		navigationController?.pushViewController(controller, animated: true)
+	@objc private func openModule(_ sender: UIButton) {
+		guard modules.indices.contains(sender.tag) else { return }
+		let module = modules[sender.tag]
+		module.prepareIfNeeded()
+		navigationController?.pushViewController(module.makeRootViewController(), animated: true)
 	}
 }
