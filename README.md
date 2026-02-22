@@ -1,10 +1,4 @@
-# Antrag
 
-[![GitHub Release](https://img.shields.io/github/v/release/khcrysalis/antrag?include_prereleases)](https://github.com/khcrysalis/Antrag/releases)
-[![GitHub License](https://img.shields.io/github/license/khcrysalis/antrag?color=%23C96FAD)](https://github.com/khcrysalis/Antrag/blob/main/LICENSE)
-
-| ![Preview Image](demo.jpeg) |
-| :--------------------------: |
 
 Antrag is the **host iOS/iPadOS app** in this repository. The former standalone Protokolle app is integrated into Antrag as an **internal module/package** and is launched from within the host app UI.
 
@@ -72,20 +66,3 @@ The archive produced above is the canonical CI output for the unified app. If yo
 
 Due to current architecture, you still need both a VPN and a lockdownd pairing file for initial setup.
 
-## Sponsors
-
-| Thanks to all my [sponsors](https://github.com/sponsors/khcrysalis)!! |
-|:-:|
-| <img src="https://raw.githubusercontent.com/khcrysalis/github-sponsor-graph/main/graph.png"> |
-| _**"samara is cute" - Vendicated**_ |
-
-## Acknowledgements
-
-- [Samara](https://github.com/khcrysalis) - The maker
-- [idevice](https://github.com/jkcoxson/idevice) - Backend functionality
-
-## License
-
-This project is licensed under the GPL-3.0 license. See [LICENSE](https://github.com/khcrysalis/Antrag/blob/main/LICENSE).
-
-By contributing to this project, you agree to license your code under the GPL-3.0 license as well (including agreeing to license exceptions), ensuring that your work, like all other contributions, remains freely accessible and open.
