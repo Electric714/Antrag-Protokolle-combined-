@@ -21,6 +21,7 @@ final class ATAppPickerViewController: UIViewController {
 			let button = UIButton(configuration: configuration)
 			button.tag = index
 			button.addTarget(self, action: #selector(openModule(_:)), for: .touchUpInside)
+			button.translatesAutoresizingMaskIntoConstraints = false
 			button.heightAnchor.constraint(equalToConstant: 72).isActive = true
 			return button
 		}
