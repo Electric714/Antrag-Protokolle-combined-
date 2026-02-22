@@ -1,3 +1,10 @@
+//
+//  ProtokolleModuleBootstrap.swift
+//  syslog
+//
+//  Created by Codex on 22.02.2026.
+//
+
 import Foundation
 import IDeviceSwift
 
