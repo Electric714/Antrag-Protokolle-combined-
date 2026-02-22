@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		334A2D032DE82207009675F0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334A2D022DE82207009675F0 /* MobileCoreServices.framework */; };
 		33534A012DF5741C00AEC291 /* IDeviceSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 33534A002DF5741C00AEC291 /* IDeviceSwift */; };
-		337F5E1A2E51CB8E00D18EAB /* Protokolle in Frameworks */ = {isa = PBXBuildFile; productRef = 337F5E192E51CB8E00D18EAB /* Protokolle */; };
+		337F5E1A2E51CB8E00D18EAB /* App3 in Frameworks */ = {isa = PBXBuildFile; productRef = 337F5E192E51CB8E00D18EAB /* App3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +45,7 @@
 			files = (
 				334A2D032DE82207009675F0 /* MobileCoreServices.framework in Frameworks */,
 				33534A012DF5741C00AEC291 /* IDeviceSwift in Frameworks */,
-				337F5E1A2E51CB8E00D18EAB /* Protokolle in Frameworks */,
+				337F5E1A2E51CB8E00D18EAB /* App3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 			name = Antrag;
 			packageProductDependencies = (
 				33534A002DF5741C00AEC291 /* IDeviceSwift */,
-				337F5E192E51CB8E00D18EAB /* Protokolle */,
+				337F5E192E51CB8E00D18EAB /* App3 */,
 			);
 			productName = caipirinha;
 			productReference = 339216D22DE42D7B00302927 /* Antrag.app */;
@@ -133,7 +133,7 @@
 			packageReferences = (
 				335349FF2DF5741B00AEC291 /* XCLocalSwiftPackageReference "IDeviceKit" */,
 				33534DAF2DF58C4700AEC291 /* XCRemoteSwiftPackageReference "LicensePlist" */,
-				337F5E182E51CB8E00D18EAB /* XCLocalSwiftPackageReference "Protokolle" */,
+				337F5E182E51CB8E00D18EAB /* XCLocalSwiftPackageReference "App3" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 339216D32DE42D7B00302927 /* Products */;
@@ -643,9 +643,9 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = IDeviceKit;
 		};
-		337F5E182E51CB8E00D18EAB /* XCLocalSwiftPackageReference "Protokolle" */ = {
+		337F5E182E51CB8E00D18EAB /* XCLocalSwiftPackageReference "App3" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Protokolle;
+			relativePath = App3;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -666,10 +666,10 @@
 			package = 335349FF2DF5741B00AEC291 /* XCLocalSwiftPackageReference "IDeviceKit" */;
 			productName = IDeviceSwift;
 		};
-		337F5E192E51CB8E00D18EAB /* Protokolle */ = {
+		337F5E192E51CB8E00D18EAB /* App3 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 337F5E182E51CB8E00D18EAB /* XCLocalSwiftPackageReference "Protokolle" */;
-			productName = Protokolle;
+			package = 337F5E182E51CB8E00D18EAB /* XCLocalSwiftPackageReference "App3" */;
+			productName = App3;
 		};
 		33534DFF2DF58D4400AEC291 /* LicensePlistBuildTool */ = {
 			isa = XCSwiftPackageProductDependency;
