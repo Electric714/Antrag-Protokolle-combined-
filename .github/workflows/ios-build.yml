@@ -21,6 +21,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Verify IDeviceKit present
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "PWD: $(pwd)"
+          echo "Listing IDeviceKit:"
+          ls -lah IDeviceKit || true
+          if [ ! -f "IDeviceKit/Package.swift" ]; then
+            echo "::error::Missing IDeviceKit/Package.swift. Submodule was not fetched or is misconfigured."
+            echo "git submodule status:"
+            git submodule status --recursive || true
+            exit 1
+          fi
+          echo "OK: IDeviceKit/Package.swift exists."
 
       - name: Build unsigned IPA
         shell: bash
