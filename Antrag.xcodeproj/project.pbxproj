@@ -663,6 +663,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		33534A002DF5741C00AEC291 /* IDeviceSwift */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 335349FF2DF5741B00AEC291 /* XCLocalSwiftPackageReference "IDeviceKit" */;
 			productName = IDeviceSwift;
 		};
 		337F5E192E51CB8E00D18EAB /* Protokolle */ = {
