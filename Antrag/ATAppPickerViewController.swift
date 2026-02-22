@@ -31,7 +31,7 @@ final class ATAppPickerViewController: UIViewController {
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
 			stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
 		])
 	}
 
