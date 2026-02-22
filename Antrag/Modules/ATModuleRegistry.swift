@@ -1,11 +1,13 @@
 import UIKit
 import SwiftUI
 import Protokolle
+import App3
 
 enum ATModuleRegistry {
 	static let all: [ATEmbeddedModule] = [
 		AntragModule(),
-		ProtokolleModule()
+		ProtokolleModule(),
+		App3Module()
 	]
 }
 
@@ -34,6 +36,22 @@ private struct ProtokolleModule: ATEmbeddedModule {
 
 	func makeRootViewController() -> UIViewController {
 		let controller = UIHostingController(rootView: ProtokolleRootView())
+		controller.title = displayName
+		return controller
+	}
+}
+
+private struct App3Module: ATEmbeddedModule {
+	let id = "app3"
+	let displayName = "App 3"
+	let subtitle: String? = nil
+
+	func prepareIfNeeded() {
+		App3Prepare.prepareIfNeeded()
+	}
+
+	func makeRootViewController() -> UIViewController {
+		let controller = UIHostingController(rootView: App3RootView())
 		controller.title = displayName
 		return controller
 	}
